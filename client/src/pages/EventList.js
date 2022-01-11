@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Breadcrumb, Loading, Pagination, EventList } from "../components";
 import { getEvents } from "../api.js";
+
 
 export function EventListPage() {
   const [events, setEvents] = useState(null);

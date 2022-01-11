@@ -31,7 +31,7 @@ export function RootPage() {
             return <EventList key={event.id} event={event} />;
           })
         )}
-      </section>      
+      </section>
     </>
   );
 }

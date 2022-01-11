@@ -6,6 +6,8 @@ import { EventListPage } from "./pages/EventList.js";
 import { EventDetailPage } from "./pages/EventDetail.js";
 import { PlaceListPage } from "./pages/PlaceList.js";
 import { PlaceDetailPage } from "./pages/PlaceDetail.js";
+import { PlaceEditPage } from "./pages/PlaceEdit.js";
+import { PlaceAddPage } from "./pages/PlaceAdd.js";
 import "./css/style.css"
 
 function Header(props){
@@ -31,22 +33,6 @@ function Navi(){
     </div>
   );
 }
-
-function PlaceAddPage() {
-  return (
-    <>
-      <form action="/place/add" method="post">
-        <label htmlFor="name">名前</label>
-        <input type="text" name="name"/>
-        <label htmlFor="memo">メモ</label>
-        <input type="text" name="memo"/>
-        <button type="submit">追加</button>
-      </form>
-    </>
-  );
-}
-
-
 export default function App() {
   return (
     <Router>
@@ -68,12 +54,14 @@ export default function App() {
               <Route path="/places" exact>
                 <PlaceListPage />
               </Route>
+              <Route path="/places/add" exact>
+                <PlaceAddPage />
+              </Route>
+              <Route path="/places/edit/:placeId" exact>
+                <PlaceEditPage />
+              </Route>
               <Route path="/places/:placeId" exact>
                 <PlaceDetailPage />
-              </Route>
-              <Route path="/places/add" exact>
-                p
-                <PlaceAddPage />
               </Route>
             </Switch>
           </div>

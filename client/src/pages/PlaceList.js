@@ -1,7 +1,27 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Breadcrumb, Loading, Pagination, PlaceList } from "../components";
+import { useLocation, Link } from "react-router-dom";
+import { Breadcrumb, Loading, Pagination } from "../components";
 import { getPlaces } from "../api.js";
+
+function PlaceList({ place }) {
+  return (    
+    <Link
+      key={place.id}
+      className="card"
+      to={`/places/${place.id}`}
+    >
+      <div className="card_head">
+        <div className="num">
+          <span>No.</span>
+          <span>{place.id}</span>
+        </div>
+        <div className="title">
+            <h2><span>{place.name}</span></h2>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 export function PlaceListPage() {
   const [places, setPlaces] = useState(null);

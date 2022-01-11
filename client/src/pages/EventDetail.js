@@ -1,7 +1,38 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getEvent } from "../api.js";
-import { Breadcrumb, Loading, Pagination, Comment, EventDetail } from "../components";
+import { Breadcrumb, Loading, Pagination } from "../components";
+
+
+function EventDetail({ event }) {
+  return (
+    <div className="card">
+      <div className="card_head">
+        <div className="date">
+          <span>{event.date}</span>
+        </div>{/* date */}
+        <div className="title">
+            <h2><span>{event.name}</span></h2>
+        </div>
+        <div className="place">
+          <p><span>{event.Place.name}</span></p>
+        </div>{/* place */}
+      </div>
+      <div className="card_detail">
+        <div className="num">
+          <span>No.</span>
+          <span>{event.id}</span>
+        </div>
+        <div className="memo">
+          <dl>
+            <dd>{event.memo}</dd>
+          </dl>
+        </div>{/* time */}
+      </div>
+    </div>
+  );
+}
+
 
 function Form({ onSubmit }) {
   async function handleFormSubmit(event) {
@@ -139,10 +170,10 @@ export function EventDetailPage() {
             perPage={perPage}
           />
         )}
-        <div className="box">
+        {/* <div className="box">
           <Form />
         </div>
-        {/* <Pagination
+        <Pagination
           path={`/events/${event.id}`}
           page={page}
           perPage={perPage}

@@ -3,3 +3,34 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  h2 会館
+  h3 新規作成
+  form(action="/places/add" method="post") 
+    label(for="name") 会館名 
+    input(type="text" name="name")
+    label(for="memo") メモ 
+    input(type="text" name="memo")
+    input(type="submit" value="新規作成")
+  h3 削除
+  form(action="/places/delete" method="post") 
+    label(for="name") 削除する会館のID 
+    input(type="text" name="id")
+    input(type="submit" value="削除")
+
+  h2 イベント
+  h3 新規作成
+  form(action="/events/add" method="post") 
+    label(for="name") イベント名 
+    input(type="text" name="name")
+    label(for="placeId") 会館ID 
+    input(type="number" name="placeId")
+    label(for="date") 日付 
+    input(type="date" name="date")
+    label(for="memo") メモ 
+    input(type="text" name="memo")
+    input(type="submit" value="新規作成")
+  h3 削除
+  form(action="/events/delete" method="post") 
+    label(for="name") 削除するイベントのID 
+    input(type="text" name="id")
+    input(type="submit" value="削除")

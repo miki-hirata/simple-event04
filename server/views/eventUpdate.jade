@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1 イベントの更新
+  form(action="/events/edit" method="post") 
+    label(for="name") イベント名 
+    input(type="text" name="name" value=event.name)
+    label(for="date") 日付
+    input(type="date" name="date" value=event.date)
+    label(for="placeId") 会館ID 
+    input(type="number" name="placeId" value=event.placeId)
+    label(for="memo") メモ
+    input(type="text" name="memo" value=event.memo)
+    input(type="hidden" name="id" value=event.id)
+    input(type="submit" value="更新")

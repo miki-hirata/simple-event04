@@ -4,16 +4,6 @@ import { getPlace } from "../api.js";
 import { Breadcrumb, Loading, Pagination } from "../components";
 import { handleDeletePlace, handleEditPlace } from "../api.js";
 
-function FormDeletePlace({ place }) {
-  return (
-    <>
-      <form onSubmit={handleDeletePlace}>
-        <input type="hidden" name="id" value={place.id}/>
-        <button type="submit">削除</button>
-      </form>
-    </>
-  );
-}
 
 function PlaceEventList({ event }) {
   return (    
@@ -38,36 +28,36 @@ function PlaceEventList({ event }) {
   );
 }
 
-function PlaceDetail({ place }) {
-  return (    
+
+function PlaceEdit({ place }) {
+  return (
     <div className="card">
-      <div className="card_head">
-        <div className="num">
-          <span>No.</span>
-          <span>{place.id}</span>
+      <form onSubmit={handleEditPlace} className="card_head">      
+        <input type="hidden" name="id" value={place.id}/>
+        <div className="name">
+          <label htmlFor="name">名前</label>
+          <input type="text" name="name" defaultValue={place.name}/>
         </div>
-        <div className="title">
-            <h2><span>{place.name}</span></h2>
-        </div>
-      </div>
-      <div className="card_detail">
         <div className="memo">
-          <span>{place.memo}</span>
+          <label htmlFor="memo">メモ</label>
+          <input type="text" name="memo" defaultValue={place.memo}/>
         </div>
+        <button type="submit">更新</button>
+      </form>
+      
+      <div className="card_detail">
         <div className="place_event">
-          
           {place.Events.map((eve) => {
             return <PlaceEventList key={eve.id} event={eve} />;
           })}
         </div>
       </div>
-      <FormDeletePlace place={place}/>
-      <Link to={`/places/edit/${place.id}`}><span>編集</span></Link>
     </div>
   );
 }
 
-export function PlaceDetailPage() {
+
+export function PlaceEditPage() {
   const [place, setPlace] = useState(null);
   const [events, setEvents] = useState(null);
 
@@ -92,7 +82,7 @@ export function PlaceDetailPage() {
           { href: "/places", content: "会場一覧" },
           {
             href: `/places/${params.placeId}`,
-            content: place && `${place.name} `,
+            content: place && `${place.name} 編集ページ `,
             active: true,
           },
         ]}
@@ -101,20 +91,11 @@ export function PlaceDetailPage() {
         {place == null ? (
           <Loading />
         ) : (
-          <PlaceDetail
+          <PlaceEdit
             place={place}
             events={events}
-            page={page}
-            perPage={perPage}
           />
         )}
-        
-        {/* <Pagination
-          path={`/places/${place.id}`}
-          page={page}
-          perPage={perPage}
-          count={comments.count}
-        /> */}
       </div>
     </>
   );

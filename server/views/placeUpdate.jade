@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 会館の更新
+  form(action="/places/edit" method="post") 
+    label(for="name") 会館名 
+    input(type="text" name="name" value=place.name)
+    label(for="memo") メモ 
+    input(type="text" name="memo" value=place.memo)
+    input(type="hidden" name="id" value=place.id)
+    input(type="submit" value="更新")
