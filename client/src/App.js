@@ -6,7 +6,6 @@ import { EventListPage } from "./pages/EventList.js";
 import { EventDetailPage } from "./pages/EventDetail.js";
 import { PlaceListPage } from "./pages/PlaceList.js";
 import { PlaceDetailPage } from "./pages/PlaceDetail.js";
-import { PlaceEditPage } from "./pages/PlaceEdit.js";
 import { PlaceAddPage } from "./pages/PlaceAdd.js";
 import "./css/style.css"
 
@@ -56,9 +55,6 @@ export default function App() {
               </Route>
               <Route path="/places/add" exact>
                 <PlaceAddPage />
-              </Route>
-              <Route path="/places/edit/:placeId" exact>
-                <PlaceEditPage />
               </Route>
               <Route path="/places/:placeId" exact>
                 <PlaceDetailPage />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { getPlace } from "../api.js";
-import { Breadcrumb, Loading, Pagination } from "../components";
+import { Breadcrumb, Loading, EditButton } from "../components";
 import { handleDeletePlace, handleEditPlace } from "../api.js";
 
 function FormDeletePlace({ place }) {
@@ -62,7 +62,33 @@ function PlaceDetail({ place }) {
         </div>
       </div>
       <FormDeletePlace place={place}/>
-      <Link to={`/places/edit/${place.id}`}><span>編集</span></Link>
+    </div>
+  );
+}
+
+function PlaceEdit({ place }) {
+  return (
+    <div className="card">
+      <form onSubmit={handleEditPlace} className="card_head">      
+        <input type="hidden" name="id" value={place.id}/>
+        <div className="name">
+          <label htmlFor="name">名前</label>
+          <input type="text" name="name" defaultValue={place.name}/>
+        </div>
+        <div className="memo">
+          <label htmlFor="memo">メモ</label>
+          <input type="text" name="memo" defaultValue={place.memo}/>
+        </div>
+        <button type="submit">更新</button>
+      </form>
+      
+      <div className="card_detail">
+        <div className="place_event">
+          {place.Events.map((eve) => {
+            return <PlaceEventList key={eve.id} event={eve} />;
+          })}
+        </div>
+      </div>
     </div>
   );
 }
@@ -76,6 +102,23 @@ export function PlaceDetailPage() {
   const query = new URLSearchParams(location.search);
   const perPage = 5;
   const page = +query.get("page") || 1;
+
+  //編集モードかどうかによる出し分け
+  const [edit, setEdit] = useState(false);
+  let placeDetail;
+  if (!edit){
+    placeDetail = 
+    <PlaceDetail
+      place={place}
+      events={events}
+    />
+  } else {
+    placeDetail = 
+    <PlaceEdit
+      place={place}
+      events={events}
+    />
+  }
 
   useEffect(() => {
     getPlace(params.placeId).then((data) => {
@@ -101,21 +144,10 @@ export function PlaceDetailPage() {
         {place == null ? (
           <Loading />
         ) : (
-          <PlaceDetail
-            place={place}
-            events={events}
-            page={page}
-            perPage={perPage}
-          />
+          placeDetail
         )}
-        
-        {/* <Pagination
-          path={`/places/${place.id}`}
-          page={page}
-          perPage={perPage}
-          count={comments.count}
-        /> */}
       </div>
+      <EditButton edit={edit} setEdit={setEdit}/>
     </>
   );
 }
