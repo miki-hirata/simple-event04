@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { getPlace } from "../api.js";
-import { Breadcrumb, Loading, EditButton } from "../components";
+import { Breadcrumb, Loading, EditButton, PlaceEventList, FormatUpdate, FormatDate } from "../components";
 import { handleDeletePlace, handleEditPlace } from "../api.js";
+
+
 
 function FormDeletePlace({ place }) {
   return (
@@ -15,42 +17,21 @@ function FormDeletePlace({ place }) {
   );
 }
 
-function PlaceEventList({ event }) {
-  return (    
-    <Link
-      key={event.id}
-      className="card"
-      to={`/events/${event.id}`}
-    >
-      <div className="card_head">
-        <div className="num">
-          <span>No.</span>
-          <span>{event.id}</span>
-        </div>
-        <div className="date">
-          <span>{event.date}</span>
-        </div>
-        <div className="title">
-            <h2><span>{event.name}</span></h2>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 function PlaceDetail({ place }) {
   return (    
     <div className="card">
       <div className="card_head">
-        <div className="num">
-          <span>No.</span>
-          <span>{place.id}</span>
-        </div>
-        <div className="title">
-            <h2><span>{place.name}</span></h2>
+        <div className="main">
+            <p className="name_large"><span>{place.name}</span></p>
         </div>
       </div>
       <div className="card_detail">
+        
+        <div className="num">
+          <span>ID</span>
+          <span>{place.id}</span>
+        </div>
         <div className="memo">
           <span>{place.memo}</span>
         </div>
@@ -61,6 +42,7 @@ function PlaceDetail({ place }) {
           })}
         </div>
       </div>
+      <FormatUpdate update={place.updatedAt}/>
       <FormDeletePlace place={place}/>
     </div>
   );

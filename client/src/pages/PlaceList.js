@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Breadcrumb, Loading, Pagination } from "../components";
+import { Breadcrumb, Loading } from "../components";
 import { getPlaces } from "../api.js";
 
 function PlaceList({ place }) {
   return (    
     <Link
       key={place.id}
-      className="card"
+      className="card link"
       to={`/places/${place.id}`}
     >
       <div className="card_head">
-        <div className="num">
-          <span>No.</span>
-          <span>{place.id}</span>
-        </div>
-        <div className="title">
-            <h2><span>{place.name}</span></h2>
+        <div className="main">
+            <p className="name_large"><span>{place.name}</span></p>
         </div>
       </div>
     </Link>
@@ -55,12 +51,6 @@ export function PlaceListPage() {
           {places.map((place) => {
             return <PlaceList key={place.id} place={place} />;
           })}
-          <Pagination
-            path="/places"
-            page={page}
-            perPage={perPage}
-            count={places?.count}
-          />
         </section>
       )}
     </>

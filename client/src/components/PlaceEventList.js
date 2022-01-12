@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { FormatDate } from "./index";
 
-
-export function EventList({ event }) {
-  return (
+export function PlaceEventList({ event }) {
+  return (    
     <Link
       key={event.id}
       className="card link"
@@ -12,8 +11,7 @@ export function EventList({ event }) {
       <div className="card_head">
         <FormatDate date={event.date} />
         <div className="main">
-          <h2 className="name_small"><span>{event.name}</span></h2>
-          <p className="name_large"><span>{event.Place.name}</span></p>
+          <h2 className="name_large"><span>{event.name}</span></h2>
         </div>
       </div>
     </Link>

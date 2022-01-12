@@ -108,46 +108,68 @@ header {
   }
 }
 
+//押せることが分かるように影をつける
+.link {
+  box-shadow: 1px 2px s.$gray;
+}
 .card {
-  border: 4px solid s.$subColor;
-  border-radius: 5px;
+  border: 1px solid s.$gray;
+  border-radius: 10px;
   display: block;
-  margin-top: 1em;
-  .card_head {
+  margin-top: 0.75em;
+  padding: 0.5em 1em;
+  background-color: #fff;
+  > .card_head {
     display: flex;
     align-items: center;
-    padding: 0.5em 1em;
-    > div {
-      margin-right: 1em;
+    > .main {
+      > .name_large {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 2;
+      }
     }
   }
+
   .card_detail {
-    padding: 0.5em 1em;
-    border-top: 4px solid s.$subColor;
+    border-top: solid 1px s.$gray;
+    margin-top: 0.5em;
+    padding-top: 1em;
   }
-}
-.event_block {
-  .date {
-    span {
-      font-size: 30px;
-      font-weight: bold;
+} //card
+
+.date {
+  margin-right: 2em;
+  > .top {
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    > span {
+      display: block;
     }
-  }
-  .time {
-    display: flex;
-    dl {
-      display: flex;
-      &:nth-child(n + 2) {
-        margin-left: 1em;
+    > .day {
+      margin-left: 1.6em;
+      margin-top: -0.95em;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: -0.25em;
+        top: -0.05em;
+        transform: rotate(30deg);
+        width: 1px;
+        height: 1em;
+        background-color: #333;
+        display: block;
       }
-      dt {
-        margin-right: 0.5em;
-      }
-    }
-  }
-  .title {
-    span {
-      font-weight: bold;
+    } //day
+  } //top
+  > .bottom {
+    font-size: 12px;
+    line-height: 0.8;
+    text-align: center;
+    > .week {
+      margin-left: 0.5em;
     }
   }
 }

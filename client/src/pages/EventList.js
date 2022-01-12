@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Breadcrumb, Loading, Pagination, EventList } from "../components";
+import { Breadcrumb, Loading, EventList } from "../components";
 import { getEvents } from "../api.js";
 
 
@@ -36,12 +36,6 @@ export function EventListPage() {
           {events.map((event) => {
             return <EventList key={event.id} event={event} />;
           })}
-          <Pagination
-            path="/events"
-            page={page}
-            perPage={perPage}
-            count={events?.count}
-          />
         </section>
       )}
     </>

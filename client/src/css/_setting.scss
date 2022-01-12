@@ -44,6 +44,7 @@ $width-SP: 480px; //スマートフォン
 //変数設定
 $baseColor: #004363; //濃い色
 $subColor: #3998c4; //薄い色
+$gray: #d6d6d6;
 $fontNoto: "Noto Sans JP", sans-serif;
 $fontYuGothic: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "メイリオ",
   sans-serif;
@@ -71,7 +72,7 @@ $fontImFell: "IM Fell English", serif;
   }
   body {
     color: #333;
-    background-color: #fff;
+    background-color: #fffff6;
     font-family: $fontYuGothic;
     line-height: 1.3;
     font-size: 16px;

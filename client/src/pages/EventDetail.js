@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { getEvent } from "../api.js";
-import { Breadcrumb, Loading, Pagination } from "../components";
+import { Breadcrumb, Loading, FormatDate} from "../components";
 
 
 function EventDetail({ event }) {
   return (
     <div className="card">
+      
       <div className="card_head">
-        <div className="date">
-          <span>{event.date}</span>
-        </div>{/* date */}
-        <div className="title">
-            <h2><span>{event.name}</span></h2>
+        <FormatDate date={event.date} />
+        <div className="main">
+            <h2 className="name_small"><span>{event.name}</span></h2>
+            <p className="name_large"><span>{event.Place.name}</span></p>
         </div>
-        <div className="place">
-          <p><span>{event.Place.name}</span></p>
-        </div>{/* place */}
       </div>
       <div className="card_detail">
         <div className="num">
-          <span>No.</span>
+          <span>ID</span>
           <span>{event.id}</span>
         </div>
         <div className="memo">
