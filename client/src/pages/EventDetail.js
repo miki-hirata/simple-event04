@@ -1,132 +1,66 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
-import { getEvent } from "../api.js";
-import { Breadcrumb, Loading, FormatDate} from "../components";
+import { useLocation, useParams, Link } from "react-router-dom";
+import { Breadcrumb, Loading, FormatDate, FormatUpdate, SelectPlace} from "../components";
+import { getEvent, handleDeleteEvent, handleEditEvent } from "../api.js";
 
 
-function EventDetail({ event }) {
+function EventDeleteButton({ event }) {
   return (
-    <div className="card">
-      
-      <div className="card_head">
-        <FormatDate date={event.date} />
-        <div className="main">
-            <h2 className="name_small"><span>{event.name}</span></h2>
-            <p className="name_large"><span>{event.Place.name}</span></p>
-        </div>
-      </div>
-      <div className="card_detail">
-        <div className="num">
-          <span>ID</span>
-          <span>{event.id}</span>
-        </div>
-        <div className="memo">
-          <dl>
-            <dd>{event.memo}</dd>
-          </dl>
-        </div>{/* time */}
-      </div>
-    </div>
+    <>
+      <form onSubmit={handleDeleteEvent}>
+        <input type="hidden" name="id" value={event.id}/>
+        <button type="submit">削除</button>
+      </form>
+    </>
   );
 }
 
-
-function Form({ onSubmit }) {
-  async function handleFormSubmit(event) {
-    event.preventDefault();
-    if (onSubmit) {
-      const record = {
-        title: event.target.elements.title.value,
-        comment: event.target.elements.comment.value,
-      };
-      event.target.elements.title.value = "";
-      event.target.elements.comment.value = "";
-      onSubmit(record);
+function EventDetail({ event }) {
+  //編集モードかどうかによる出し分け(独立コンポーネントにするとエラー)
+  const [edit, setEdit] = useState(false);
+  const toggleEdit = () => setEdit(!edit);
+  function EditButton() {
+    if(edit){
+      return <button type="submit">更新</button>
+    } else {
+      return <button onClick={toggleEdit}>編集</button>
     }
   }
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <div className="field">
-        <div className="control">
-          <label className="label">タイトル</label>
-          <div className="control">
-            <input name="title" className="input" required disabled />
+    <div className="card">
+      <form onSubmit={handleEditEvent}> 
+        <div className="card_head">
+          <FormatDate date={event.date} />
+          <input type="date" name="date" defaultValue={event.date} disabled={!edit}/>
+          <div className="main">    
+            <input type="text" name="name" defaultValue={event.name} className="name_large" disabled={!edit}/>
+            <Link
+              key={event.id}
+              className="name_large link"
+              to={`/places/${event.Place.id}`}
+            ><span>{event.Place.name}</span></Link>
+            {/* <input type="number" name="placeId" defaultValue={event.placeId} placeholder="会場ID" /> */}
           </div>
         </div>
-      </div>
-      <div className="field">
-        <div className="control">
-          <label className="label">コメント</label>
-          <div className="control">
-            <textarea name="comment" className="textarea" required disabled />
+        <div className="card_detail">
+          <div className="num">
+            <span>ID</span>
+            <span>{event.id}</span>
+          </div>
+          <div className="memo">
+            <textarea type="text" name="memo" defaultValue={event.memo} disabled={!edit}/>
           </div>
         </div>
-      </div>
-      <div className="field">
-        <div className="control">
-          <button type="submit" className="button is-warning" disabled>
-            レビューを投稿
-          </button>
-        </div>
-        <p className="help">ログインが必要です。</p>
-      </div>
-    </form>
+        {/* <SelectPlace /> */}
+        <input type="hidden" name="id" value={event.id}/>
+        <EditButton />
+      </form>
+      <FormatUpdate updateAt={event.updatedAt}/>
+      <EventDeleteButton event={event}/>
+    </div>
   );
 }
-/* 
-function Event({ event, comments, page, perPage }) {
-  return (
-    <>
-      <article className="box">
-        <h3 className="title is-5">{event.name}</h3>
-        <div className="columns">
-          <div className="column is-6">
-            <figure className="image is-square">
-              <img
-                src={event.image || "/images/events/noimage.png"}
-                alt={event.name}
-              />
-            </figure>
-          </div>
-          <div className="column is-6">
-            <figure className="image is-square">
-              <div
-                className="has-ratio"
-                dangerouslySetInnerHTML={{ __html: event.map }}
-              ></div>
-            </figure>
-          </div>
-        </div>
-      </article>
-      <div className="box">
-        {comments.rows.length === 0 ? (
-          <p>レビューがまだありません。</p>
-        ) : (
-          <>
-            <div className="block">
-              <p>{comments.count}件のレビュー</p>
-            </div>
-            <div className="block">
-              {comments.rows.map((comment) => {
-                return <Comment key={comment.id} comment={comment} />;
-              })}
-            </div>
-            <div className="bread_area">
-              <Pagination
-                path={`/events/${event.id}`}
-                page={page}
-                perPage={perPage}
-                count={comments.count}
-              />
-            </div>
-          </>
-        )}
-      </div>
-    </>
-  );
-}
- */
 
 export function EventDetailPage() {
   const [event, setEvent] = useState(null);
@@ -140,7 +74,6 @@ export function EventDetailPage() {
   useEffect(() => {
     getEvent(params.eventId).then((data) => {
       setEvent(data);
-      console.log(data);
     });
   }, [params.eventId]);
 
@@ -163,19 +96,8 @@ export function EventDetailPage() {
         ) : (
           <EventDetail
             event={event}
-            page={page}
-            perPage={perPage}
           />
         )}
-        {/* <div className="box">
-          <Form />
-        </div>
-        <Pagination
-          path={`/events/${event.id}`}
-          page={page}
-          perPage={perPage}
-          count={comments.count}
-        /> */}
       </div>
     </>
   );

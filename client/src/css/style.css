@@ -87,6 +87,12 @@ header .header_area {
   color: #fff;
 }
 
+.sub_title span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #797979;
+}
+
 .select_box select {
   cursor: pointer;
   background-color: #fff;
@@ -193,14 +199,16 @@ header {
   padding: 0.5em 1em;
   background-color: #fff;
 }
-.card > .card_head {
+.card .card_head {
   display: flex;
   align-items: center;
 }
-.card > .card_head > .main > .name_large {
+.card .card_head > .main > .name_small {
+  line-height: 1.6;
+}
+.card .card_head > .main > .name_large {
   font-size: 20px;
   font-weight: bold;
-  line-height: 2;
 }
 .card .card_detail {
   border-top: solid 1px #d6d6d6;
@@ -212,7 +220,7 @@ header {
   margin-right: 2em;
 }
 .date > .top {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
   letter-spacing: -0.05em;
 }
@@ -242,6 +250,14 @@ header {
 }
 .date > .bottom > .week {
   margin-left: 0.5em;
+}
+
+textarea {
+  width: 100%;
+}
+
+.place_event {
+  margin-top: 2em;
 }
 
 .bread_area {

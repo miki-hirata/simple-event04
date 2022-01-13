@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { RootPage } from "./pages/Root.js";
 import { EventListPage } from "./pages/EventList.js";
 import { EventDetailPage } from "./pages/EventDetail.js";
+import { EventAddPage } from "./pages/EventAdd.js";
 import { PlaceListPage } from "./pages/PlaceList.js";
 import { PlaceDetailPage } from "./pages/PlaceDetail.js";
 import { PlaceAddPage } from "./pages/PlaceAdd.js";
@@ -27,7 +28,9 @@ function Navi(){
     <div className="navi_area">    
       <ul className="navi_list">
       <li><Link to={`/events`}><span>イベント一覧</span></Link></li>
+      <li><Link to={`/events/add`}><span>新規イベント</span></Link></li>
       <li><Link to={`/places`}><span>会場一覧</span></Link></li>
+      <li><Link to={`/places/add`}><span>新規会場</span></Link></li>
       </ul>  
     </div>
   );
@@ -46,6 +49,9 @@ export default function App() {
               </Route>
               <Route path="/events" exact>
                 <EventListPage />
+              </Route>
+              <Route path="/events/add" exact>
+                <EventAddPage />
               </Route>
               <Route path="/events/:eventId">
                 <EventDetailPage />
