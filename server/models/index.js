@@ -18,9 +18,14 @@ if (config.use_env_variable) {
 const url =
   process.env.DATABASE_URL ||
   "postgres://postgres:postgres@localhost:5432/simple_event04";
-let sequelize = new Sequelize(url);
-
-
+let sequelize = new Sequelize(url, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
 
 fs
   .readdirSync(__dirname)
