@@ -18,7 +18,7 @@ function Header(props){
         <Link
           className="main_title"
           to={`/`}
-        ><h1><span>簡易イベント表示</span></h1></Link>
+        ><h1><span>Simple Event 4.0</span></h1></Link>
       </div>
     </header>
   );

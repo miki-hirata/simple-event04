@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getEvents } from "../api.js";
+import { getEvents, fetchEvents } from "../api.js";
 import { Loading, EventList } from "../components";
 
 /* export async function fetchImages() {
@@ -11,7 +11,6 @@ import { Loading, EventList } from "../components";
 
 export function RootPage() {
   const [events, setEvents] = useState(null);
-
   useEffect(() => {
     getEvents({ limit: 5 }).then((data) => {
       setEvents(data);
@@ -22,7 +21,7 @@ export function RootPage() {
     <>
       <section className="event_section">
         <div className="section_title">
-          <h2><span>最新イベント（5件）</span></h2>
+          <h2><span>Latest 5 events</span></h2>
         </div>
         {events == null ? (
           <Loading />
